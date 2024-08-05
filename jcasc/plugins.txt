@@ -2,7 +2,6 @@ ant:latest
 antisamy-markup-formatter:latest
 build-timeout:latest
 cloudbees-folder:latest
-configuration-as-code:latest
 credentials-binding:latest
 email-ext:latest
 git:latest
@@ -19,3 +18,4 @@ timestamper:latest
 workflow-aggregator:latest
 ws-cleanup:latest
 authorize-project:latest
+configuration-as-code:latest

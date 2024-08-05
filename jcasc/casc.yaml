@@ -1,0 +1,101 @@
+jenkins:
+  systemMessage: "Jenkins configured automatically by Jenkins Configuration as Code plugin\n\n"
+  numExecutors: 5
+  scmCheckoutRetryCount: 2
+  mode: NORMAL
+
+  # globalNodeProperties:
+  #   - envVars:
+  #       env:
+  #         - key: FOO
+  #           value: BAR
+  securityRealm:
+    local:
+      allowsSignup: false
+      users:
+        - id: "admin"
+          password: "${ADMIN_PASSWORD}"
+
+  authorizationStrategy:
+    globalMatrix:
+      permissions:
+        - "USER:Overall/Read:anonymous"
+        - "GROUP:Overall/Administer:authenticated"
+        - "USER:Overall/Administer:admin"
+
+  # clouds:
+  #   - docker:
+  #       name: "docker"
+  #       dockerApi:
+  #         dockerHost:
+  #           uri: "unix:///var/run/docker.sock"
+  #       templates:
+  #         - labelString: "docker-agent"
+  #           dockerTemplateBase:
+  #             image: "jenkins/slave"
+  #             mounts:
+  #               - "type=tmpfs,destination=/run"
+  #               - "type=bind,source=/var/run/docker.sock,destination=/var/run/docker.sock"
+  #               - "type=volume,src=hello,dst=/world"
+  #             environmentsString: |
+  #               hello=world
+  #               foo=bar
+  #           remoteFs: "/home/jenkins/agent"
+  #           connector:
+  #             attach:
+  #               user: "jenkins"
+  #           instanceCapStr: "10"
+
+# tool:
+#   git:
+#     installations:
+#       - name: git
+#         home: /usr/local/bin/git
+
+##  If Jenkins <2.165 then you can comment out the below section:
+##
+##  https://github.com/jenkinsci/configuration-as-code-plugin/issues/754
+##
+##security:
+##  remotingCLI:
+##    enabled: false
+credentials:
+  system:
+    domainCredentials:
+      - credentials:
+          - usernamePassword:
+              scope: GLOBAL
+              id: "admin"
+              username: "admin"
+              password: "${SOME_USER_PASSWORD}"
+              description: "Username/Password Credentials for admin"
+
+unclassified:
+  # artifactorybuilder:
+  #   useCredentialsPlugin: true
+  #   jfrogInstances:
+  #     - instanceId: artifactory
+  #       platformUrl: http://acme.com/artifactory
+  #       artifactoryUrl: http://acme.com/artifactory
+  #       distributionUrl: http://acme.com/distribution
+  #       resolverCredentialsConfig:
+  #         username: artifactory_user
+  #         password: "${ARTIFACTORY_PASSWORD}"
+
+  # globalLibraries:
+  #   libraries:
+  #     - name: "awesome-lib"
+  #       retriever:
+  #         modernSCM:
+  #           scm:
+  #             git:
+  #               remote: "https://github.com/jenkins-infra/pipeline-library.git"
+
+  location:
+    adminAddress: s.sergeev@1440.space
+    url: https://127.0.0.1:8080/
+
+  # mailer:
+  #   replyToAddress: do-not-reply@acme.org
+  #   smtpHost: smtp.acme.org
+  #   smtpPort: 4441
